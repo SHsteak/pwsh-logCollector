@@ -15,9 +15,9 @@
 
 ```xml
 <ad>
-	<domain>example.com</domain>
-		<id>id</id>
-		<pw>pw</pw>
+  <domain>example.com</domain>
+  <id>id</id>
+  <pw>pw</pw>
 </ad>
 ```
 
@@ -25,7 +25,7 @@
 
 ```xml
 <servers>
-	<server>server1</server>
+  <server>server1</server>
   <server>server2</server>
   <server>server3</server>
 </servers>

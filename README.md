@@ -17,7 +17,7 @@
 <ad>
 	<domain>example.com</domain>
 		<id>id</id>
-    <pw>pw</pw>
+		<pw>pw</pw>
 </ad>
 ```
 

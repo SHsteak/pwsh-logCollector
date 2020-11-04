@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<default>
+    <ad>
+        <domain>torayamk.com</domain>
+        <id>administrator</id>
+        <pw>yourPassword</pw>
+    </ad>
+    <servers>
+        <server>s-ssrbk-op</server>
+    </servers>
+</default>

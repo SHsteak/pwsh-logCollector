@@ -1,13 +1,14 @@
 ﻿
 param (
-    [String]$scriptHome = "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\08.Log_Collector"
+    [String]$path = "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\Powershell\08.Log_Collector",
+    $config = (Select-Xml -Path "$($path)\conf.xml" -XPath "/"  | Select-Object -ExpandProperty Node).default
 )
-Get-Content -Path "$scriptHome\server_list" | ForEach-Object -Parallel {
+$config.servers.server | ForEach-Object -Parallel {
     param(
-        $scriptHome = $Using:scriptHome,
+        $scriptHome = $Using:path,
         [String]$destPath = "$($scriptHome)\logs",
-        [String]$username = "administrator@torayamk.com",
-        [securestring]$password = (ConvertTo-SecureString "skdmstkfkd!@" -AsPlainText -Force),
+        [String]$username = "$($Using:config.ad.id)@$($Using:config.ad.domain)",
+        [securestring]$password = (ConvertTo-SecureString $Using:config.ad.pw -AsPlainText -Force),
         [datetime]$now = (Get-Date),
         [String]$fileDate = (Get-Date -Format "yyyyMMdd")
     )
@@ -66,5 +67,3 @@ Get-Content -Path "$scriptHome\server_list" | ForEach-Object -Parallel {
         }
     }
 }
-
-exit 0

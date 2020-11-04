@@ -1,9 +1,10 @@
 ﻿param (
-    [String]$path = "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\08.Log_Collector",
-    [String]$destPath = "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\08.Log_Collector",
-    [System.Collections.ArrayList]$list = (Get-Content -Path "$path\server_list"),
-    [String]$username = "administrator@torayamk.com",
-    [securestring]$password = (ConvertTo-SecureString "skdmstkfkd!@" -AsPlainText -Force)
+    [String]$path = "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\Powershell\08.Log_Collector",
+    $config = (Select-Xml -Path "$($path)\conf.xml" -XPath "/"  | Select-Object -ExpandProperty Node).default,
+    [String]$destPath = "$($path)\logs",
+    $list = $config.servers.server,
+    [String]$username = "$($config.ad.id)@$($config.ad.domain)",
+    [securestring]$password = (ConvertTo-SecureString $config.ad.pw -AsPlainText -Force)
 )
 
 $now = Get-Date

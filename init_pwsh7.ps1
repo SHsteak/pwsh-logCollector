@@ -1,6 +1,6 @@
 ﻿
 param (
-    [String]$path = "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\Powershell\08.Log_Collector",
+    [String]$path = "$($env:LC_HOME)",
     $config = (Select-Xml -Path "$($path)\conf.xml" -XPath "/"  | Select-Object -ExpandProperty Node).default
 )
 $config.servers.server | ForEach-Object -Parallel {

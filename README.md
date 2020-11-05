@@ -7,11 +7,10 @@
 
 ### 1. 환경 변수 등록
 
-- 기본
 
-    ```powershell
-    [System.Environment]::SetEnvironmentVariable("LC_HOME", "<your log_collercot home>", "Machine")
-    ```
+  ```powershell
+  [System.Environment]::SetEnvironmentVariable("LC_HOME", "<your log_collercot home>", "Machine")
+  ```
 
 - 예제
 

@@ -5,27 +5,27 @@
 
 # 사용법
 
-## 1. 환경 변수 등록
+### 1. 환경 변수 등록
 
-### 기본
+- 기본
 
-```powershell
-[System.Environment]::SetEnvironmentVariable("LC_HOME", "<your log_collercot home>", "Machine")
-```
+    ```powershell
+    [System.Environment]::SetEnvironmentVariable("LC_HOME", "<your log_collercot home>", "Machine")
+    ```
 
-### 예제
+- 예제
 
-```powershell
-# 환경변수 등록
-[System.Environment]::SetEnvironmentVariable("LC_HOME", "D:\개인자료\업무\서버관리\10.Scripts\01.Windows\Powershell\08.Log_Collector", "Machine")
+    ```powershell
+    # 환경변수 등록
+    [System.Environment]::SetEnvironmentVariable("LC_HOME", "D:\example", "Machine")
 
-# 확인
-$env:LC_HOME
+    # 확인
+    $env:LC_HOME
 
-D:\개인자료\업무\서버관리\10.Scripts\01.Windows\Powershell\08.Log_Collector
-```
+    D:\example
+    ```
 
-## 2. conf.xml에 AD 정보 입력
+### 2. conf.xml에 AD 정보 입력
 
 ```xml
 <ad>
@@ -35,7 +35,7 @@ D:\개인자료\업무\서버관리\10.Scripts\01.Windows\Powershell\08.Log_Coll
 </ad>
 ```
 
-## 3. conf.xml에 수집할 대상 서버 리스트 입력
+### 3. conf.xml에 수집할 대상 서버 리스트 입력
 
 ```xml
 <servers>

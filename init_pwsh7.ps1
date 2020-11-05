@@ -13,7 +13,8 @@ $config.servers.server | ForEach-Object -Parallel {
         [String]$fileDate = (Get-Date -Format "yyyyMMdd")
     )
 
-    $server = $_
+    $server = $_.hostname
+
 
     if ([int]$now.Day -lt 15) {
         $start_time = Get-Date -Month ($now.Month - 1) -Day 15 -Hour 0 -Minute 0 -Second 0 -Millisecond 0
@@ -27,6 +28,11 @@ $config.servers.server | ForEach-Object -Parallel {
     $term = (Get-Date -Date $start_time -Format "yyyyMMdd") + "-" + (Get-Date -Date ($end_time.AddDays(-1))  -Format "dd")
     
     try {
+        # AD에 Join 안된 서버일 경우, LocalAccount\ID와 별도 PW로 Setting
+        if ($_.id -ne $null) {
+            $username = "LocalAccount\$($_.id)"
+            $password = (ConvertTo-SecureString $_.pw -AsPlainText -Force)
+        }
         $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
         $session = New-PSSession -Credential $cred -ComputerName $server
     }

@@ -6,6 +6,13 @@
         <pw>yourPassword</pw>
     </ad>
     <servers>
-        <server>s-ssrbk-op</server>
+        <server>
+            <hostname>s-ssrbk-op</hostname>
+        </server>
+        <server>
+            <hostname>s-veeam-test</hostname>
+            <id>id</id>
+            <pw>pw</pw>
+        </server>
     </servers>
 </default>

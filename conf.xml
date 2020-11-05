@@ -3,16 +3,17 @@
     <ad>
         <domain>torayamk.com</domain>
         <id>administrator</id>
-        <pw>yourPassword</pw>
+        <pw>password</pw>
     </ad>
     <servers>
         <server>
-            <hostname>s-ssrbk-op</hostname>
+            <hostname>name1</hostname>
         </server>
         <server>
-            <hostname>s-veeam-test</hostname>
+            <hostname>name2</hostname>
+            <ipAddress>ip</ipAddress>
             <id>id</id>
-            <pw>pw</pw>
+            <pw>password</pw>
         </server>
     </servers>
 </default>

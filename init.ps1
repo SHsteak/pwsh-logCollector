@@ -35,13 +35,18 @@ function run() {
     $list | ForEach-Object {
         $server = $_.hostname
         try {
-            # AD에 Join 안된 서버일 경우, LocalAccount\ID와 별도 PW로 Setting
+            # AD에 Join 안된 서버일 경우, LocalAccount\ID와 별도 PW로 PSSession 생성
             if ($null -ne $_.id) {
                 $username = "LocalAccount\$($_.id)"
                 $password = (ConvertTo-SecureString $_.pw -AsPlainText -Force)
+                $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
+                $session = New-PSSession -Credential $cred -ComputerName $_.ipAddress
             }
-            $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
-            $session = New-PSSession -Credential $cred -ComputerName $server
+            # AD Join 된 경우, AD 계정으로 PSSession 생성
+            else {
+                $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
+                $session = New-PSSession -Credential $cred -ComputerName $server
+            }
         }
         catch {
             exceptionHandler $server $_.Exception

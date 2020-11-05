@@ -28,13 +28,18 @@ $config.servers.server | ForEach-Object -Parallel {
     $term = (Get-Date -Date $start_time -Format "yyyyMMdd") + "-" + (Get-Date -Date ($end_time.AddDays(-1))  -Format "dd")
     
     try {
-        # AD에 Join 안된 서버일 경우, LocalAccount\ID와 별도 PW로 Setting
-        if ($_.id -ne $null) {
+        # AD에 Join 안된 서버일 경우, LocalAccount\ID와 별도 PW로 PSSession 생성
+        if ($null -ne $_.id) {
             $username = "LocalAccount\$($_.id)"
             $password = (ConvertTo-SecureString $_.pw -AsPlainText -Force)
+            $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
+            $session = New-PSSession -Credential $cred -ComputerName $_.ipAddress
         }
-        $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
-        $session = New-PSSession -Credential $cred -ComputerName $server
+        # AD Join 된 경우, AD 계정으로 PSSession 생성
+        else {
+            $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)
+            $session = New-PSSession -Credential $cred -ComputerName $server
+        }
     }
     catch {
         if (!(Test-Path "$scriptHome\error")) {

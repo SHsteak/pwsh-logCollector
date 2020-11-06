@@ -30,6 +30,12 @@ $config.servers.server | ForEach-Object -Parallel {
     try {
         # AD에 Join 안된 서버일 경우, LocalAccount\ID와 별도 PW로 PSSession 생성
         if ($null -ne $_.id) {
+            # TrustedHost에 없는 서버인 경우 등록
+            if ((Get-Item WSMan:\localhost\Client\TrustedHosts | Where-Object -Property Value -like $_.ipAddress).length -lt 1) {
+                $thTemp = Get-Item WSMan:\localhost\Client\TrustedHosts
+                Set-Item WSMan:\localhost\Client\TrustedHosts -Value "$($thTemp), $($_.ipAddress)" -Force
+            }
+        
             $username = "LocalAccount\$($_.id)"
             $password = (ConvertTo-SecureString $_.pw -AsPlainText -Force)
             $cred = New-Object System.Management.Automation.PSCredential -ArgumentList ($username, $password)

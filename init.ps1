@@ -39,7 +39,7 @@ function run() {
             if ($null -ne $_.id) {
                 # TrustedHost에 없는 서버인 경우 등록
                 if ((Get-Item WSMan:\localhost\Client\TrustedHosts | Where-Object -Property Value -like $_.ipAddress).length -lt 1) {
-                    $thTemp = Get-Item WSMan:\localhost\Client\TrustedHosts
+                    $thTemp = (Get-Item WSMan:\localhost\Client\TrustedHosts).Value
                     Set-Item WSMan:\localhost\Client\TrustedHosts -Value "$($thTemp), $($_.ipAddress)" -Force
                 }
         

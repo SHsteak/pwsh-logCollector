@@ -5,11 +5,24 @@
 
 # 사용법
 
-### 1. init.ps1 또는 init_pwsh7.ps1에서 Path 변경
+### 1. 환경 변수 등록
 
-```powershell
-[String]$path = "<Your Home Dir>",
-```
+
+  ```powershell
+  [System.Environment]::SetEnvironmentVariable("LC_HOME", "<your log_collercot home>", "Machine")
+  ```
+
+- 예제
+
+    ```powershell
+    # 환경변수 등록
+    [System.Environment]::SetEnvironmentVariable("LC_HOME", "D:\example", "Machine")
+
+    # 확인
+    $env:LC_HOME
+
+    D:\example
+    ```
 
 ### 2. conf.xml에 AD 정보 입력
 
@@ -17,7 +30,7 @@
 <ad>
   <domain>example.com</domain>
   <id>id</id>
-  <pw>pw</pw>
+  <pw>password</pw>
 </ad>
 ```
 
@@ -25,8 +38,16 @@
 
 ```xml
 <servers>
-  <server>server1</server>
-  <server>server2</server>
-  <server>server3</server>
+  <!-- AD 조인 O -->
+  <server>
+    <hostname>server1</hostname>
+  </server>
+  <!-- AD 조인 X -->
+  <server>
+    <hostname>server2</hostname>
+    <ipAddress>51.2.x.x</ipAddress>
+    <id>id</id>
+    <pw>password</pw>
+  </server>
 </servers>
 ```

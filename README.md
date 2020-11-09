@@ -51,3 +51,25 @@
   </server>
 </servers>
 ```
+
+### 4. 실행
+
+- pwsh 버전 7 이상
+
+    ```powershell
+    pwsh.exe `
+    	-NoProfile -NoLogo `
+    	-NonInteractive `
+    	-ExecutionPolicy Bypass `
+    	-File "~/init_pwsh7.ps1"
+    ```
+
+- pwsh 버전 7 미만
+
+    ```powershell
+    powershell.exe `
+    	-NoProfile -NoLogo `
+    	-NonInteractive `
+    	-ExecutionPolicy Bypass `
+    	-File "~/init.ps1"
+    ```
